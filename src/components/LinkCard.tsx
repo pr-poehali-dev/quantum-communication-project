@@ -1,14 +1,15 @@
 import { motion } from "framer-motion"
-import { ChevronRight, type LucideIcon } from "lucide-react"
+import { ChevronRight } from "lucide-react"
+import Icon from "@/components/ui/icon"
 
 interface LinkCardProps {
   title: string
   description?: string
   href: string
-  icon: LucideIcon
+  iconName: string
 }
 
-export function LinkCard({ title, description, href, icon: Icon }: LinkCardProps) {
+export function LinkCard({ title, description, href, iconName }: LinkCardProps) {
   return (
     <motion.a
       href={href}
@@ -91,7 +92,7 @@ export function LinkCard({ title, description, href, icon: Icon }: LinkCardProps
           border: "1px solid rgba(255, 255, 255, 0.6)",
         }}
       >
-        <Icon className="h-5 w-5" strokeWidth={1.75} />
+        <Icon name={iconName} className="h-5 w-5" strokeWidth={1.75} />
       </div>
 
       <div className="relative flex-1 min-w-0">

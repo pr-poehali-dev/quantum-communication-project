@@ -1,8 +1,9 @@
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
+import { useState } from "react"
 import { ProfileSection } from "@/components/ProfileSection"
 import { LinkCard } from "@/components/LinkCard"
 import { SocialFooter } from "@/components/SocialFooter"
-import Icon from "@/components/ui/icon"
+import { TicketForm } from "@/components/TicketForm"
 import { Mail, MessageCircle, Send } from "lucide-react"
 
 const links = [
@@ -72,6 +73,14 @@ const itemVariants = {
 }
 
 export function LinkBioPage() {
+  const [showTicketForm, setShowTicketForm] = useState(false)
+
+  const handleLinkClick = (title: string) => {
+    if (title === "Создать тикет") {
+      setShowTicketForm(true)
+    }
+  }
+
   return (
     <main className="relative min-h-screen px-6 py-10 flex flex-col overflow-hidden">
       <div className="fixed inset-0 z-0 bg-gradient-to-br from-slate-50 via-white to-slate-100" />
@@ -221,10 +230,14 @@ export function LinkBioPage() {
         <motion.div className="space-y-3 py-8" variants={containerVariants}>
           {links.map((link) => (
             <motion.div key={link.title} variants={itemVariants}>
-              <LinkCard {...link} />
+              <LinkCard {...link} onClick={() => handleLinkClick(link.title)} />
             </motion.div>
           ))}
         </motion.div>
+
+        <AnimatePresence>
+          {showTicketForm && <TicketForm onClose={() => setShowTicketForm(false)} />}
+        </AnimatePresence>
 
         <motion.div variants={itemVariants} className="pb-2">
           <SocialFooter socials={socials} copyright="2025 Help Desk System" />

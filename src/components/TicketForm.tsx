@@ -11,7 +11,8 @@ export function TicketForm({ onClose }: TicketFormProps) {
     subject: "",
     description: "",
     priority: "medium",
-    email: ""
+    email: "",
+    phone: ""
   })
 
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -31,6 +32,12 @@ export function TicketForm({ onClose }: TicketFormProps) {
       newErrors.email = "Укажите email для связи"
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Некорректный email"
+    }
+    
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Укажите номер телефона"
+    } else if (!/^[\d\s+()-]{10,}$/.test(formData.phone)) {
+      newErrors.phone = "Некорректный номер телефона"
     }
     
     setErrors(newErrors)
@@ -147,6 +154,22 @@ export function TicketForm({ onClose }: TicketFormProps) {
             />
             {errors.email && (
               <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Номер телефона
+            </label>
+            <input
+              type="tel"
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              className="w-full px-4 py-3 rounded-xl border border-gray-200/50 bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+              placeholder="+7 (999) 123-45-67"
+            />
+            {errors.phone && (
+              <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
             )}
           </div>
 

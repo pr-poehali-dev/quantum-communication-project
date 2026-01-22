@@ -4,6 +4,7 @@ import { ProfileSection } from "@/components/ProfileSection"
 import { LinkCard } from "@/components/LinkCard"
 import { SocialFooter } from "@/components/SocialFooter"
 import { TicketForm } from "@/components/TicketForm"
+import { MyTickets } from "@/components/MyTickets"
 import { Mail, MessageCircle, Send } from "lucide-react"
 
 const links = [
@@ -74,10 +75,13 @@ const itemVariants = {
 
 export function LinkBioPage() {
   const [showTicketForm, setShowTicketForm] = useState(false)
+  const [showMyTickets, setShowMyTickets] = useState(false)
 
   const handleLinkClick = (title: string) => {
     if (title === "Создать тикет") {
       setShowTicketForm(true)
+    } else if (title === "Мои обращения") {
+      setShowMyTickets(true)
     }
   }
 
@@ -237,6 +241,7 @@ export function LinkBioPage() {
 
         <AnimatePresence>
           {showTicketForm && <TicketForm onClose={() => setShowTicketForm(false)} />}
+          {showMyTickets && <MyTickets onClose={() => setShowMyTickets(false)} />}
         </AnimatePresence>
 
         <motion.div variants={itemVariants} className="pb-2">
